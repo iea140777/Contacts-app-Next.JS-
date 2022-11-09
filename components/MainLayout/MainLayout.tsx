@@ -8,7 +8,6 @@ import { Navigation } from "../Navigation/Navigation";
 
 interface MainLayoutProps {
   children: React.ReactNode;
-  // title?: string
 }
 
 export function MainLayout({ children }: MainLayoutProps) {
@@ -16,12 +15,14 @@ export function MainLayout({ children }: MainLayoutProps) {
   return (
     <>
       <Head>
+        <title> Contacts</title>
         <meta
           name="keywords"
           content="next,typescript,nextjs,react, contacts"
         />
         <meta name="description" content="this is test app with nextJS" />
         <meta charSet="utf-8" />
+        <meta lang="en" />
       </Head>
       <main>
         <Navigation />
