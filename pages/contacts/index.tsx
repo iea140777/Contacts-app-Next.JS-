@@ -20,7 +20,6 @@ interface ContactsProps {
 }
 
 export default function Contacts({ contacts: serverContacts }: ContactsProps) {
-  // console.log("serverContacts: ", serverContacts)
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { isAuthorized, userId } = useAppSelector(selectUser);
@@ -73,10 +72,9 @@ export default function Contacts({ contacts: serverContacts }: ContactsProps) {
   };
 
   const cancelNewContactHandler = () => {
-    setContacts((prevContacts) => {
-      prevContacts.filter((contact) => contact.id !== 0);
-      return contacts;
-    });
+    setContacts((prevContacts) =>
+      prevContacts.filter((contact) => contact.id !== 0)
+    );
   };
 
   const renderContactCards = () =>
