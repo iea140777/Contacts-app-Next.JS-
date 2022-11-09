@@ -122,7 +122,10 @@ export default function Contacts({ contacts: serverContacts }: ContactsProps) {
 
 export async function getStaticProps() {
   // TODO: find solution to implement fetching with RTK-query
-  const res = await fetch("http://localhost:3004/contacts");
+  const res = await fetch(`${process.env.API_URL}/contacts`);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch contacts, received status ${res.status}`);
+  }
   const contacts = await res.json();
   return {
     props: {

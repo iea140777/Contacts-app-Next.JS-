@@ -13,7 +13,7 @@ const USER_TAGS = {
 
 const userApi = createApi({
   reducerPath: "userData",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3004" }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${process.env.API_URL}` }),
   extractRehydrationInfo(action, { reducerPath }) {
     if (action.type === HYDRATE) {
       return action.payload[reducerPath];

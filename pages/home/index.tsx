@@ -26,7 +26,7 @@ export default function Home() {
   const [isLoginFailed, setIsLoginFailed] = useState<boolean>(false);
 
   const {
-    data: userContacts = [],
+    data: userContacts,
     isFetching: isGetContactsFetching,
     isError: isGetContactsrError,
   } = useGetUserContactsQuery("", { skip: !isAuthorized });
