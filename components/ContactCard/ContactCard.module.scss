@@ -1,0 +1,25 @@
+.card {
+  width: 300px; 
+  text-align: left;
+  box-shadow: 0 2px 5px #f0f0f0;
+  height: fit-content;
+  overflow: hidden; 
+}
+
+.inputContainer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 5px 0;
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.icon {
+  font-size: 16px;
+  width: 100%;
+}

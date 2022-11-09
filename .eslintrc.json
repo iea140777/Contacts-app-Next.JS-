@@ -1,3 +1,60 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next/core-web-vitals",
+    "eslint:recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 12
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "extends": [
+        "airbnb-typescript",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended"
+      ],
+      "plugins": [
+        "react",
+        "@typescript-eslint",
+        "simple-import-sort"
+      ],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "ecmaFeatures": {
+          "jsx": true
+        },
+        "ecmaVersion": 2018,
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+      },
+      "rules": {
+        "prettier/prettier": [
+          "error",
+          { "endOfLine": "auto" }
+        ],
+        "simple-import-sort/imports": [
+          "error",
+          {
+            "groups": [
+              ["^\\u0000"],
+              ["^next"],
+              ["^react"],
+              ["^@?\\w"],
+              ["^@/api\\/?\\w"],
+              ["^@/store\\/?\\w"],
+              ["^@/constants\\/?\\w"],
+              ["^@/hooks\\/?\\w"],
+              ["^@/hocs\\/?\\w"],
+              ["^@/utils\\/?\\w"],
+              ["^@/types\\/?\\w"],
+              ["^@/pages\\/?\\w"],
+              ["^"],
+              ["^\\."]
+            ]
+          }
+        ]
+      }
+    }
+  ]
 }

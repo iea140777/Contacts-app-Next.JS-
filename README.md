@@ -1,34 +1,31 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# General description
 
-## Getting Started
+This is a test task application created with Next.JS + Typescript, Redux Toolkit + Redux Toolkit Query, AntDesign was used for UI.
+This project was bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-First, run the development server:
+[JSON server](https://github.com/typicode/json-server) is used with mocked data in `db.json` file.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+Node.js version: `14.17.0`
+
+Application consists of two pages - Home and Contacts.
+
+On Home page user can login (enetering email and password), and if login is successfull, link to Contacts page is available.
+Implementation of authorization is primitive, without using tokens, only checking user login/password and setting isAuthorized flag.
+To authorize successfully enter login and password for one of the users from db.json file (e.g. email: `user1@user.ru`, password: `1`)
+
+On Contacts page user can see his/her contacts list, can create, edit or delete contacts, search contacts.
+
+# To start this app in dev mode:
+
+- clone this repo
+- In the project directory run:
+  - run `npm i` to install project dependencies
+  - run `npm run server` to start JSON server
+  - run `npm run dev` to start application in development mode
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
 [API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
