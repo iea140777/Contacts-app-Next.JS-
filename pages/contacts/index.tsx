@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { Button, Input } from "antd";
 
 import { ContactCard } from "../../components/ContactCard/ContactCard";
-import { MainLayout } from "../../components/MainLayout/MainLayout";
 import { setIsLoading } from "../../store/loaderSlice";
 import { useGetUserContactsQuery } from "../../store/UserApi";
 import { selectUser } from "../../store/userSlice";
@@ -91,35 +90,35 @@ export default function Contacts({ contacts: serverContacts }: ContactsProps) {
     ));
 
   return (
-    <MainLayout>
-      <div className={styles.container}>
-        <h2>Contacts</h2>
-        <h3>Total {contacts.length} contacts</h3>
-        <div className={styles.searchContainer}>
-          <h3>Search contacts:</h3>
-          <Search
-            allowClear
-            placeholder="Enter contact name"
-            enterButton
-            loading={isFetching}
-            onSearch={(value) => setSearchString(value)}
-          />
-        </div>
-        <Button
-          type="primary"
-          size="large"
-          onClick={addContactHandler}
-          className={styles.button}
-          disabled={hasEmptyContact}
-        >
-          Add new contact
-        </Button>
-        {isError && <span>Something went wrong...</span>}
-        {contacts && (
-          <div className={styles.cardContainer}>{renderContactCards()}</div>
-        )}
+    // <MainLayout>
+    <div className={styles.container}>
+      <h2>Contacts</h2>
+      <h3>Total {contacts.length} contacts</h3>
+      <div className={styles.searchContainer}>
+        <h3>Search contacts:</h3>
+        <Search
+          allowClear
+          placeholder="Enter contact name"
+          enterButton
+          loading={isFetching}
+          onSearch={(value) => setSearchString(value)}
+        />
       </div>
-    </MainLayout>
+      <Button
+        type="primary"
+        size="large"
+        onClick={addContactHandler}
+        className={styles.button}
+        disabled={hasEmptyContact}
+      >
+        Add new contact
+      </Button>
+      {isError && <span>Something went wrong...</span>}
+      {contacts && (
+        <div className={styles.cardContainer}>{renderContactCards()}</div>
+      )}
+    </div>
+    // </MainLayout>
   );
 }
 

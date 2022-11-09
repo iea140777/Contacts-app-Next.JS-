@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { Button } from "antd";
 
 import { LoginForm } from "../../components/LoginForm/LoginForm";
-import { MainLayout } from "../../components/MainLayout/MainLayout";
 import { setIsLoading } from "../../store/loaderSlice";
 import { useLazyGetUserQuery } from "../../store/UserApi";
 import { useGetUserContactsQuery } from "../../store/UserApi";
@@ -68,43 +67,43 @@ export default function Home() {
   }, [loginResult, isUserFetching, dispatch]);
 
   return (
-    <MainLayout>
-      <div className={styles.container}>
-        {isLoginFailed && (
-          <h3 className={styles.warning}>
+    // <MainLayout>
+    <div className={styles.container}>
+      {isLoginFailed && (
+        <h3 className={styles.warning}>
+          {" "}
+          Wrong username/password. Please try again.
+        </h3>
+      )}
+      {isGetUserError && (
+        <h3 className={styles.warning}>
+          {" "}
+          Something went wrong... Please try again.
+        </h3>
+      )}
+      {!isAuthorized ? (
+        <LoginForm loginHandler={loginHandler} />
+      ) : (
+        <div className={styles.container}>
+          <h2> Hello, {userName}!</h2>
+          <h3>
             {" "}
-            Wrong username/password. Please try again.
+            Now you can manage your contacts at{" "}
+            <Link href="/contacts">Contacts</Link> page
           </h3>
-        )}
-        {isGetUserError && (
-          <h3 className={styles.warning}>
-            {" "}
-            Something went wrong... Please try again.
-          </h3>
-        )}
-        {!isAuthorized ? (
-          <LoginForm loginHandler={loginHandler} />
-        ) : (
-          <div className={styles.container}>
-            <h2> Hello, {userName}!</h2>
-            <h3>
-              {" "}
-              Now you can manage your contacts at{" "}
-              <Link href="/contacts">Contacts</Link> page
-            </h3>
-            {userContacts && !isGetContactsrError && (
-              <h3> You have {userContacts.length} contacts at the moment</h3>
-            )}
-            <Button
-              htmlType="button"
-              onClick={logoutUserHandler}
-              className={styles.button}
-            >
-              Logout
-            </Button>
-          </div>
-        )}
-      </div>
-    </MainLayout>
+          {userContacts && !isGetContactsrError && (
+            <h3> You have {userContacts.length} contacts at the moment</h3>
+          )}
+          <Button
+            htmlType="button"
+            onClick={logoutUserHandler}
+            className={styles.button}
+          >
+            Logout
+          </Button>
+        </div>
+      )}
+    </div>
+    // </MainLayout>
   );
 }

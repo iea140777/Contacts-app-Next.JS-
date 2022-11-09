@@ -5,12 +5,15 @@ import type { AppProps } from "next/app";
 
 import { Provider } from "react-redux";
 
+import { MainLayout } from "../components/MainLayout/MainLayout";
 import { store } from "../store/store";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
-      <Component {...pageProps} />
+      <MainLayout>
+        <Component {...pageProps} />
+      </MainLayout>
     </Provider>
   );
 }
