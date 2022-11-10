@@ -88,7 +88,6 @@ export default function Contacts({ contacts: serverContacts }: ContactsProps) {
     ));
 
   return (
-    // <MainLayout>
     <div className={styles.container}>
       <h2>Contacts</h2>
       <h3>Total {contacts.length} contacts</h3>
@@ -116,7 +115,6 @@ export default function Contacts({ contacts: serverContacts }: ContactsProps) {
         <div className={styles.cardContainer}>{renderContactCards()}</div>
       )}
     </div>
-    // </MainLayout>
   );
 }
 
