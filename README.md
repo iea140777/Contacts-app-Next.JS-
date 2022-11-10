@@ -7,13 +7,9 @@ This project was bootstrapped with [`create-next-app`](https://github.com/vercel
 
 Node.js version: `14.17.0`
 
-Application consists of two pages - Home and Contacts.
-
-On Home page user can login (enetering email and password), and if login is successfull, link to Contacts page is available.
 Implementation of authorization is primitive, without using tokens, only checking user login/password and setting isAuthorized flag.
 To authorize successfully enter login and password for one of the users from db.json file (e.g. email: `user1@user.ru`, password: `1`)
-
-On Contacts page user can see his/her contacts list, can create, edit or delete contacts, search contacts.
+If  user is logged in, link to Contacts page is available, where user can see his/her private contacts list, can create, edit or delete contacts, search contacts.
 
 # To start this app in dev mode:
 
