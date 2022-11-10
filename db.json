@@ -19,48 +19,78 @@
       "password": "1"
     }
   ],
-  "contacts": [
+  "common": [
     {
       "id": 1,
+      "name": "Fire",
+      "phone": "01",
+      "address": "",
+      "email": ""
+    },
+    {
+      "id": 2,
+      "name": "Police",
+      "phone": "02",
+      "address": "",
+      "email": ""
+    },
+    {
+      "id": 3,
+      "name": "Ambulance",
+      "phone": "03",
+      "address": "",
+      "email": ""
+    }
+  ],
+  "contacts": [
+    {
+      "id": 5,
       "name": "John Doe",
       "phone": "789456156",
       "address": "123 Road 123456",
       "email": "fff@ttt.nn"
     },
     {
-      "id": 2,
+      "id": 6,
       "name": "Mary Petrova",
       "phone": "123456765",
       "address": "dffdgdfgdf",
       "email": "fg@fg.com"
     },
     {
-      "id": 3,
-      "name": "Mike",
-      "phone": "8798798787",
-      "address": "Spb, Prospect 23,12",
-      "email": "mike@mike.ru"
+      "id": 7,
+      "name": "Pavel",
+      "phone": "",
+      "address": "",
+      "email": "dd"
     },
     {
-      "id": 4,
-      "name": "Pavel",
+      "id": 8,
+      "name": "Name Name",
+      "phone": "phone",
+      "address": "address",
+      "email": "email"
+    },
+    {
+      "id": 9,
+      "name": "Name Name",
+      "phone": "phone",
+      "address": "address",
+      "email": "email"
+    },
+    {
+      "id": 10,
+      "name": "ffdg",
       "phone": "",
       "address": "",
       "email": ""
     },
     {
-      "id": 5,
-      "name": "Name Name",
-      "phone": "phone",
-      "address": "address",
-      "email": "email"
-    },
-    {
-      "id": 7,
-      "name": "Name Name",
-      "phone": "phone",
-      "address": "address",
-      "email": "email"
+      "id": 11,
+      "name": "ddd",
+      "phone": "",
+      "address": "",
+      "email": ""
     }
   ]
 }

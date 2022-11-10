@@ -16,10 +16,10 @@ import styles from "./Contacts.module.scss";
 const { Search } = Input;
 
 interface ContactsProps {
-  contacts: ContactsList;
+  commonContacts: ContactsList;
 }
 
-export default function Contacts({ contacts: serverContacts }: ContactsProps) {
+export default function Contacts({ commonContacts }: ContactsProps) {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { isAuthorized, userId } = useAppSelector(selectUser);
@@ -30,8 +30,6 @@ export default function Contacts({ contacts: serverContacts }: ContactsProps) {
     }
   });
 
-  const [contacts, setContacts] = useState<ContactsList>(serverContacts);
-
   const [searchString, setSearchString] = useState<string>("");
 
   const {
@@ -40,11 +38,7 @@ export default function Contacts({ contacts: serverContacts }: ContactsProps) {
     isError,
   } = useGetUserContactsQuery(searchString);
 
-  useEffect(() => {
-    if (!serverContacts && fetchedContacts) {
-      setContacts(fetchedContacts);
-    }
-  }, []);
+  const [contacts, setContacts] = useState<ContactsList>([]);
 
   useEffect(() => {
     if (fetchedContacts) {
@@ -60,10 +54,6 @@ export default function Contacts({ contacts: serverContacts }: ContactsProps) {
     }
   }, [isFetching, dispatch]);
 
-  if (!contacts) {
-    return null;
-  }
-
   const hasEmptyContact =
     contacts.filter((contact) => contact.id === 0).length > 0;
 
@@ -77,8 +67,8 @@ export default function Contacts({ contacts: serverContacts }: ContactsProps) {
     );
   };
 
-  const renderContactCards = () =>
-    contacts.map((contact) => (
+  const renderContactCards = (contactsData: ContactsList) =>
+    contactsData.map((contact) => (
       <ContactCard
         contact={contact}
         key={contact.id}
@@ -90,7 +80,7 @@ export default function Contacts({ contacts: serverContacts }: ContactsProps) {
   return (
     <div className={styles.container}>
       <h2>Contacts</h2>
-      <h3>Total {contacts.length} contacts</h3>
+      <h3>Total {contacts.length} personal contacts</h3>
       <div className={styles.searchContainer}>
         <h3>Search contacts:</h3>
         <Search
@@ -111,8 +101,17 @@ export default function Contacts({ contacts: serverContacts }: ContactsProps) {
         Add new contact
       </Button>
       {isError && <span>Something went wrong...</span>}
+      <h2>Common contacts</h2>
+      <div className={styles.cardContainer}>
+        {renderContactCards(commonContacts)}
+      </div>
       {contacts && (
-        <div className={styles.cardContainer}>{renderContactCards()}</div>
+        <>
+          <h2>Personal contacts</h2>
+          <div className={styles.cardContainer}>
+            {renderContactCards(contacts)}
+          </div>
+        </>
       )}
     </div>
   );
@@ -120,14 +119,14 @@ export default function Contacts({ contacts: serverContacts }: ContactsProps) {
 
 export async function getStaticProps() {
   // TODO: find solution to implement fetching with RTK-query
-  const res = await fetch(`${process.env.API_URL}/contacts`);
+  const res = await fetch(`${process.env.API_URL}/common`);
   if (!res.ok) {
     throw new Error(`Failed to fetch contacts, received status ${res.status}`);
   }
-  const contacts = await res.json();
+  const commonContacts = await res.json();
   return {
     props: {
-      contacts,
+      commonContacts,
     },
   };
 }
