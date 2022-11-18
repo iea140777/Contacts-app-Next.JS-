@@ -1,9 +1,12 @@
-type UserId = number | undefined;
+// TODO: fix typeing for id
+type UserId = number | undefined | string;
 
-interface UserData {
+interface User {
   id: UserId;
   name: string;
   email: string;
+}
+interface UserData extends User {
   password: string;
 }
 
@@ -17,6 +20,4 @@ interface Contact {
 
 type ContactsList = Array<Contact>;
 
-type UsersData = UserData[];
-
-export type { ContactsList, UsersData, UserId, UserData, Contact };
+export type { ContactsList, User, UserId, UserData, Contact };

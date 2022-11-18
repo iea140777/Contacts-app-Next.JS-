@@ -5,16 +5,24 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "antd";
 
-import { logout, selectUser } from "../../store/userSlice";
-import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+import { useLogoutUserMutation } from "../../store/UserApi";
+import { useServerRefresher } from "../../utils/hooks";
+import { User } from "../../utils/types";
 import styles from "./Navigation.module.scss";
+interface Props {
+  user: User;
+}
 
-function Navigation() {
-  const dispatch = useAppDispatch();
-  const { isAuthorized, userName } = useAppSelector(selectUser);
+function Navigation({ user }: Props) {
+  const [logoutUserMutation] = useLogoutUserMutation();
 
-  const logoutUserHandler = () => {
-    dispatch(logout());
+  // Rerenders component when user data is changed
+  // TODO: consider another solution here
+  const refreshData = useServerRefresher();
+
+  const logoutUserHandler = async () => {
+    await logoutUserMutation();
+    refreshData();
   };
 
   const router = useRouter();
@@ -28,7 +36,7 @@ function Navigation() {
         <Link href="/about" className={styles.user}>
           About
         </Link>
-        {isAuthorized ? (
+        {user ? (
           <Link href="/contacts" className={styles.user}>
             Contacts
           </Link>
@@ -36,8 +44,8 @@ function Navigation() {
       </div>
       <div className={styles.user}>
         <FontAwesomeIcon icon={faUser} className={styles.icon} />
-        <span className="font-bold">{isAuthorized ? userName : "Guest"}</span>
-        {isAuthorized ? (
+        <span className="font-bold">{user ? user.name : "Guest"}</span>
+        {user ? (
           <Button
             htmlType="button"
             onClick={logoutUserHandler}

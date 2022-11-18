@@ -11,7 +11,7 @@ import { store } from "../store/store";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
-      <MainLayout>
+      <MainLayout user={pageProps.user}>
         <Component {...pageProps} />
       </MainLayout>
     </Provider>

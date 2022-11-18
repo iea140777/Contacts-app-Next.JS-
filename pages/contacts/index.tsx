@@ -1,15 +1,17 @@
-import { useRouter } from "next/router";
+import { GetServerSidePropsContext } from "next";
+import Link from "next/link";
 
 import { useEffect, useState } from "react";
 
 import { Button, Input } from "antd";
 
 import { ContactCard } from "../../components/ContactCard/ContactCard";
+import { authenticateUser } from "../../lib/authenticateUser";
 import { setIsLoading } from "../../store/loaderSlice";
 import { useGetUserContactsQuery } from "../../store/UserApi";
-import { selectUser } from "../../store/userSlice";
 import { emptyContact } from "../../utils/constants";
-import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+import { useAppDispatch } from "../../utils/hooks";
+import { UserData } from "../../utils/types";
 import { ContactsList } from "../../utils/types";
 import styles from "./Contacts.module.scss";
 
@@ -17,26 +19,19 @@ const { Search } = Input;
 
 interface ContactsProps {
   commonContacts: ContactsList;
+  user?: UserData;
 }
 
-export default function Contacts({ commonContacts }: ContactsProps) {
-  const router = useRouter();
+export default function Contacts({ commonContacts, user }: ContactsProps) {
   const dispatch = useAppDispatch();
-  const { isAuthorized, userId } = useAppSelector(selectUser);
-
-  useEffect(() => {
-    if (!isAuthorized || !userId) {
-      router.push("/");
-    }
-  });
 
   const [searchString, setSearchString] = useState<string>("");
 
   const {
     data: fetchedContacts,
     isFetching,
-    isError,
-  } = useGetUserContactsQuery(searchString);
+    error,
+  } = useGetUserContactsQuery(searchString, { skip: !user });
 
   const [contacts, setContacts] = useState<ContactsList>([]);
 
@@ -80,9 +75,14 @@ export default function Contacts({ commonContacts }: ContactsProps) {
   return (
     <div className={styles.container}>
       <h2>Contacts</h2>
-      <h3>Total {contacts.length} personal contacts</h3>
+      {(!user || (error && error.status === 401)) && (
+        <h3>
+          Please <Link href="/login">login</Link> to see your personal contacts.
+        </h3>
+      )}
+      {user && <h3>Total {contacts.length} personal contacts</h3>}
       <div className={styles.searchContainer}>
-        <h3>Search contacts:</h3>
+        <h3>Search personal contacts:</h3>
         <Search
           allowClear
           placeholder="Enter contact name"
@@ -100,33 +100,34 @@ export default function Contacts({ commonContacts }: ContactsProps) {
       >
         Add new contact
       </Button>
-      {isError && <span>Something went wrong...</span>}
+
+      {contacts && user && (
+        <>
+          <h2>Personal contacts</h2>
+          {error && error.status !== 401 && (
+            <span>Something went wrong...</span>
+          )}
+          {!error && contacts.length > 0 && (
+            <div className={styles.cardContainer}>
+              {renderContactCards(contacts)}
+            </div>
+          )}
+          {!error && contacts.length === 0 && <h3>No contacts found...</h3>}
+        </>
+      )}
       <h2>Common contacts</h2>
       <div className={styles.cardContainer}>
         {renderContactCards(commonContacts)}
       </div>
-      {contacts && (
-        <>
-          <h2>Personal contacts</h2>
-          <div className={styles.cardContainer}>
-            {renderContactCards(contacts)}
-          </div>
-        </>
-      )}
     </div>
   );
 }
 
-export async function getStaticProps() {
-  // TODO: find solution to implement fetching with RTK-query
-  const res = await fetch(`${process.env.API_URL}/common`);
-  if (!res.ok) {
-    throw new Error(`Failed to fetch contacts, received status ${res.status}`);
-  }
-  const commonContacts = await res.json();
+import { commonContacts } from "../../db.json";
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const user = await authenticateUser(context.req);
+  if (!user) return { props: { commonContacts } };
   return {
-    props: {
-      commonContacts,
-    },
+    props: { user, commonContacts },
   };
 }

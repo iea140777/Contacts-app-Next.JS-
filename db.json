@@ -8,7 +8,7 @@
     },
     {
       "id": "2",
-      "name": "John Doe",
+      "name": "Ivan Ivanov",
       "email": "user2@user.ru",
       "password": "2"
     },
@@ -19,7 +19,7 @@
       "password": "1"
     }
   ],
-  "common": [
+  "commonContacts": [
     {
       "id": 1,
       "name": "Fire",
@@ -40,9 +40,16 @@
       "phone": "03",
       "address": "",
       "email": ""
+    },
+    {
+      "id": 4,
+      "name": "Ambulance",
+      "phone": "03",
+      "address": "",
+      "email": ""
     }
   ],
-  "contacts": [
+  "userContacts": [
     {
       "id": 5,
       "name": "John Doe",

@@ -4,13 +4,15 @@ import { Spin } from "antd";
 
 import { selectLoader } from "../../store/loaderSlice";
 import { useAppSelector } from "../../utils/hooks";
+import { User } from "../../utils/types";
 import { Navigation } from "../Navigation/Navigation";
 
 interface MainLayoutProps {
   children: React.ReactNode;
+  user: User;
 }
 
-export function MainLayout({ children }: MainLayoutProps) {
+export function MainLayout({ children, user }: MainLayoutProps) {
   const { isLoading } = useAppSelector(selectLoader);
   return (
     <>
@@ -25,7 +27,7 @@ export function MainLayout({ children }: MainLayoutProps) {
         <meta lang="en" />
       </Head>
       <main>
-        <Navigation />
+        <Navigation user={user} />
         <Spin spinning={isLoading}>{children}</Spin>
       </main>
     </>
