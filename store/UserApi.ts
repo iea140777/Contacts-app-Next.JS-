@@ -13,7 +13,6 @@ const USER_TAGS = {
 
 const userApi = createApi({
   reducerPath: "userData",
-  // baseQuery: fetchBaseQuery({ baseUrl: `${process.env.API_URL}` }),
   baseQuery: fetchBaseQuery({ baseUrl: `http://localhost:3000` }),
   extractRehydrationInfo(action, { reducerPath }) {
     if (action.type === HYDRATE) {
@@ -22,12 +21,6 @@ const userApi = createApi({
   },
   tagTypes: Object.values(USER_TAGS),
   endpoints: (builder) => ({
-    // getUser: builder.query<UsersData, GetUserRequestParams>({
-    //   query: ({ email, password }) => ({
-    //     url: `/users?email=${email}&password=${password}`,
-    //   }),
-    //   providesTags: [USER_TAGS.UserData],
-    // }),
     loginUser: builder.mutation<UserData, GetUserRequestParams>({
       query: ({ email, password }) => ({
         url: "/api/login",
@@ -44,12 +37,6 @@ const userApi = createApi({
       }),
       invalidatesTags: [USER_TAGS.Contacts],
     }),
-    // getUserContacts: builder.query<ContactsList, string>({
-    //   query: (searchString) => ({
-    //     url: `/api/contacts?q=${searchString}`,
-    //   }),
-    //   providesTags: [USER_TAGS.Contacts],
-    // }),
     getUserContacts: builder.query<ContactsList, string>({
       query: (searchString) => ({
         url: `api/contacts?q=${searchString}`,
@@ -58,7 +45,7 @@ const userApi = createApi({
     }),
     addUserContact: builder.mutation<Contact, Contact>({
       query: (contact) => ({
-        url: "/contacts",
+        url: "/api/contacts",
         method: "POST",
         body: contact,
       }),
@@ -66,7 +53,7 @@ const userApi = createApi({
     }),
     updateUserContact: builder.mutation<Contact, Contact>({
       query: (contact) => ({
-        url: `/contacts/${contact.id}`,
+        url: "/api/contacts/",
         method: "PUT",
         body: contact,
       }),
@@ -74,8 +61,9 @@ const userApi = createApi({
     }),
     deleteUserContact: builder.mutation<void, number>({
       query: (contactId) => ({
-        url: `/contacts/${contactId}`,
+        url: "/api/contacts",
         method: "DELETE",
+        body: contactId,
       }),
       invalidatesTags: [USER_TAGS.Contacts],
     }),

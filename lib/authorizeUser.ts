@@ -2,12 +2,14 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 import jwt from "jsonwebtoken";
 
-import { users } from "../db.json";
 import { User, UserData } from "../utils/types";
 import cookieOptions from "./cookieOptions";
+import { getDbUsers } from "./dataHelpers/getDbUsers";
 import setCookie from "./setCookie";
 
 const JWT_TOKEN_KEY = process.env.JWT_TOKEN_KEY || "super duper secret key";
+const users = getDbUsers();
+
 export default function authorizeUser(
   req: NextApiRequest,
   res: NextApiResponse

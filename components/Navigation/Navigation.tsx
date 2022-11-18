@@ -36,11 +36,10 @@ function Navigation({ user }: Props) {
         <Link href="/about" className={styles.user}>
           About
         </Link>
-        {user ? (
-          <Link href="/contacts" className={styles.user}>
-            Contacts
-          </Link>
-        ) : null}
+
+        <Link href="/contacts" className={styles.user}>
+          Contacts
+        </Link>
       </div>
       <div className={styles.user}>
         <FontAwesomeIcon icon={faUser} className={styles.icon} />

@@ -9,6 +9,7 @@ interface User {
 interface UserData extends User {
   password: string;
 }
+type UsersDataList = Array<UserData>;
 
 interface Contact {
   id: number;
@@ -20,4 +21,18 @@ interface Contact {
 
 type ContactsList = Array<Contact>;
 
-export type { ContactsList, User, UserId, UserData, Contact };
+interface DbData {
+  users: UsersDataList;
+  commonContacts: ContactsList;
+  userContacts: ContactsList;
+}
+
+export type {
+  ContactsList,
+  User,
+  UserId,
+  UserData,
+  Contact,
+  DbData,
+  UsersDataList,
+};

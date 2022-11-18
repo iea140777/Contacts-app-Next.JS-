@@ -80,27 +80,30 @@ export default function Contacts({ commonContacts, user }: ContactsProps) {
           Please <Link href="/login">login</Link> to see your personal contacts.
         </h3>
       )}
-      {user && <h3>Total {contacts.length} personal contacts</h3>}
-      <div className={styles.searchContainer}>
-        <h3>Search personal contacts:</h3>
-        <Search
-          allowClear
-          placeholder="Enter contact name"
-          enterButton
-          loading={isFetching}
-          onSearch={(value) => setSearchString(value)}
-        />
-      </div>
-      <Button
-        type="primary"
-        size="large"
-        onClick={addContactHandler}
-        className={styles.button}
-        disabled={hasEmptyContact}
-      >
-        Add new contact
-      </Button>
-
+      {user && (
+        <>
+          <h3>Total {contacts.length} personal contacts</h3>
+          <div className={styles.searchContainer}>
+            <h3>Search personal contacts:</h3>
+            <Search
+              allowClear
+              placeholder="Enter contact name"
+              enterButton
+              loading={isFetching}
+              onSearch={(value) => setSearchString(value)}
+            />
+          </div>
+          <Button
+            type="primary"
+            size="large"
+            onClick={addContactHandler}
+            className={styles.button}
+            disabled={hasEmptyContact}
+          >
+            Add new contact
+          </Button>
+        </>
+      )}
       {contacts && user && (
         <>
           <h2>Personal contacts</h2>
@@ -123,8 +126,9 @@ export default function Contacts({ commonContacts, user }: ContactsProps) {
   );
 }
 
-import { commonContacts } from "../../db.json";
+import { getDbCommonContacts } from "../../lib/dataHelpers/getDbCommonContacts";
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const commonContacts = getDbCommonContacts();
   const user = await authenticateUser(context.req);
   if (!user) return { props: { commonContacts } };
   return {
