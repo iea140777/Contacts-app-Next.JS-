@@ -1,7 +1,9 @@
+import { NextApiResponse } from "next";
+
 import { serialize } from "cookie";
 
 export default function setCookie(
-  response: any,
+  response: NextApiResponse,
   name: string,
   value: string,
   options: Record<string, unknown> = {}

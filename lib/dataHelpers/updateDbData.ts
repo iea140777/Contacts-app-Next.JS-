@@ -2,12 +2,18 @@ import { readFileSync, writeFileSync } from "fs";
 
 import { DbData } from "../../utils/types";
 
-type Handler = (data: DbData) => void;
+type DataByKey = DbData[keyof DbData];
+type Handler = (data: DataByKey) => void;
 
-export function updateDbData(handler: Handler) {
+export function updateDbData(handler: Handler, key: keyof DbData) {
   const data: DbData = JSON.parse(readFileSync("mockedDbData.json", "utf8"));
-  handler(data);
+  const dataByKey: DataByKey = data[key];
 
-  const newData = JSON.stringify(data);
-  writeFileSync("mockedDbData.json", newData);
+  handler(dataByKey);
+  const newData = {
+    [key]: dataByKey,
+    ...data,
+  };
+  const newDataJson = JSON.stringify(newData, null, " ");
+  writeFileSync("mockedDbData.json", newDataJson);
 }

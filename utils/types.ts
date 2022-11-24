@@ -21,11 +21,19 @@ interface Contact {
 
 type ContactsList = Array<Contact>;
 
+interface UserContacts {
+  userId: UserId;
+  contacts: ContactsList;
+}
+
 interface DbData {
   users: UsersDataList;
   commonContacts: ContactsList;
-  userContacts: ContactsList;
+  usersContacts: UserContacts[];
 }
+
+// TODO: fix typing for DataByKey
+type DataByKey = DbData[keyof DbData];
 
 export type {
   ContactsList,
@@ -35,4 +43,6 @@ export type {
   Contact,
   DbData,
   UsersDataList,
+  UserContacts,
+  DataByKey,
 };

@@ -1,9 +1,10 @@
 import { readFileSync } from "fs";
 
-import { ContactsList } from "../../utils/types";
+import { ContactsList, DbData } from "../../utils/types";
 
 export function getDbCommonContacts(): ContactsList {
   const data = readFileSync("mockedDbData.json", "utf8");
-  const { commonContacts } = JSON.parse(data);
+  const parsedData: DbData = JSON.parse(data);
+  const { commonContacts } = parsedData;
   return commonContacts;
 }

@@ -32,7 +32,6 @@ export default function Contacts({ commonContacts, user }: ContactsProps) {
     isFetching,
     error,
   } = useGetUserContactsQuery(searchString, { skip: !user });
-
   const [contacts, setContacts] = useState<ContactsList>([]);
 
   useEffect(() => {
@@ -75,49 +74,49 @@ export default function Contacts({ commonContacts, user }: ContactsProps) {
   return (
     <div className={styles.container}>
       <h2>Contacts</h2>
-      {(!user || (error && error.status === 401)) && (
+      {!user && (
         <h3>
           Please <Link href="/login">login</Link> to see your personal contacts.
         </h3>
       )}
       {user && (
         <>
-          <h3>Total {contacts.length} personal contacts</h3>
-          <div className={styles.searchContainer}>
-            <h3>Search personal contacts:</h3>
-            <Search
-              allowClear
-              placeholder="Enter contact name"
-              enterButton
-              loading={isFetching}
-              onSearch={(value) => setSearchString(value)}
-            />
-          </div>
-          <Button
-            type="primary"
-            size="large"
-            onClick={addContactHandler}
-            className={styles.button}
-            disabled={hasEmptyContact}
-          >
-            Add new contact
-          </Button>
+          {error && <span>Something went wrong...</span>}
+          {contacts && (
+            <>
+              <h3>Total {contacts.length} personal contacts</h3>
+              <div className={styles.searchContainer}>
+                <h3>Search personal contacts:</h3>
+                <Search
+                  allowClear
+                  placeholder="Enter contact name"
+                  enterButton
+                  loading={isFetching}
+                  onSearch={(value) => setSearchString(value)}
+                />
+              </div>
+              <Button
+                type="primary"
+                size="large"
+                onClick={addContactHandler}
+                className={styles.button}
+                disabled={hasEmptyContact}
+              >
+                Add new contact
+              </Button>
+              <h2>Personal contacts</h2>
+              {contacts.length > 0 ? (
+                <div className={styles.cardContainer}>
+                  {renderContactCards(contacts)}
+                </div>
+              ) : (
+                <h3>No contacts found...</h3>
+              )}
+            </>
+          )}
         </>
       )}
-      {contacts && user && (
-        <>
-          <h2>Personal contacts</h2>
-          {error && error.status !== 401 && (
-            <span>Something went wrong...</span>
-          )}
-          {!error && contacts.length > 0 && (
-            <div className={styles.cardContainer}>
-              {renderContactCards(contacts)}
-            </div>
-          )}
-          {!error && contacts.length === 0 && <h3>No contacts found...</h3>}
-        </>
-      )}
+
       <h2>Common contacts</h2>
       <div className={styles.cardContainer}>
         {renderContactCards(commonContacts)}
