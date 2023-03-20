@@ -35,7 +35,8 @@ export default function LoginPage() {
   }, [isLoggingIn]);
 
   useEffect(() => {
-    if (error && error.status === 401) {
+    if (error && "status" in error && error.status === 401) {
+      console.log(error);
       setIsLoginFailed(true);
     }
     if (!isLoggingIn && loginResult) {
@@ -55,7 +56,7 @@ export default function LoginPage() {
         </h3>
       )}
 
-      {error && error.status !== 401 && (
+      {error && "status" in error && error.status !== 401 && (
         <h3 className={styles.warning}>
           {" "}
           Something went wrong... Please try again.

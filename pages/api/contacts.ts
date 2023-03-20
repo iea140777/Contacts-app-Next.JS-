@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { authenticateUser } from "../../lib/authenticateUser";
 import { getDbUserContacts } from "../../lib/dataHelpers/getDbUserContacts";
 import { updateDbData } from "../../lib/dataHelpers/updateDbData";
+import { DbData } from "../../utils/types";
 import { Contact, ContactsList, DataByKey } from "../../utils/types";
 
 function searchContacts(
@@ -49,16 +50,18 @@ export default async function contacts(
       {
         const newContact: Contact = req.body;
         const addContact = (data: DataByKey): void => {
-          const userContacts = data.find((item) => item.userId === user.id);
+          const userContacts = (data as DbData["usersContacts"]).find(
+            (item) => item.userId === user.id
+          );
+          if (!userContacts) {
+            return res.status(401).send("");
+          }
 
           const newContactId: number =
             userContacts.contacts[userContacts.contacts.length - 1].id + 1;
           newContact.id = newContactId;
 
-          data
-            // TODO: fix typing for "item" in DataByKey interface
-            .find((item) => item.userId === user.id)
-            .contacts.push(newContact);
+          userContacts.contacts.push(newContact);
         };
         updateDbData(addContact, "usersContacts");
         res.status(200).json(newContact);
@@ -68,7 +71,12 @@ export default async function contacts(
       {
         const updatedContact: Contact = req.body;
         const updateContact = (data: DataByKey): void => {
-          const userContacts = data.find((item) => item.userId === user.id);
+          const userContacts = (data as DbData["usersContacts"]).find(
+            (item) => item.userId === user.id
+          );
+          if (!userContacts) {
+            return res.status(401).send("");
+          }
           const updatedContactIndex = userContacts.contacts.findIndex(
             (contact) => contact.id === updatedContact.id
           );
@@ -83,7 +91,12 @@ export default async function contacts(
         const contactId = Number(req.body);
 
         const deleteContact = (data: DataByKey) => {
-          const userContacts = data.find((item) => item.userId === user.id);
+          const userContacts = (data as DbData["usersContacts"]).find(
+            (item) => item.userId === user.id
+          );
+          if (!userContacts) {
+            return res.status(401).send("");
+          }
           const updatedContacts = userContacts.contacts.filter(
             (contact: Contact) => contact.id !== contactId
           );

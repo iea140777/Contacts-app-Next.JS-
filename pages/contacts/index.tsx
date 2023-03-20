@@ -46,7 +46,7 @@ export default function Contacts({ commonContacts, user }: ContactsProps) {
     } else {
       dispatch(setIsLoading(false));
     }
-  }, [isFetching, dispatch]);
+  }, [isFetching]);
 
   const hasEmptyContact =
     contacts.filter((contact) => contact.id === 0).length > 0;
