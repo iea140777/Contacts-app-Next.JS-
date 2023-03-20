@@ -6,6 +6,8 @@ import { Contact, ContactsList, UserData } from "../utils/types";
 
 type GetUserRequestParams = Pick<UserData, "email" | "password">;
 
+// const HOST_NAME: string = window.location.hostname;
+
 const USER_TAGS = {
   UserData: "UserData",
   Contacts: "Contacts",
@@ -13,7 +15,9 @@ const USER_TAGS = {
 
 const userApi = createApi({
   reducerPath: "userData",
-  baseQuery: fetchBaseQuery({ baseUrl: `http://localhost:3000` }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://contacts-app-next-js.vercel.app/",
+  }),
   extractRehydrationInfo(action, { reducerPath }) {
     if (action.type === HYDRATE) {
       return action.payload[reducerPath];
