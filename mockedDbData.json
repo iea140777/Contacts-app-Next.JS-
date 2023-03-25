@@ -1,102 +1,16 @@
 {
- "usersContacts": [
-  {
-   "userId": "1",
-   "contacts": [
-    {
-     "id": 1,
-     "name": "John Doe",
-     "phone": "789456156",
-     "address": "123 Road 123456",
-     "email": "fff@ttt.nn"
-    },
-    {
-     "id": 2,
-     "name": "Mary Ivanova",
-     "phone": "123456765",
-     "address": "dffdgdfgdf",
-     "email": "fg@fg.com"
-    },
-    {
-     "id": 3,
-     "name": "Garry Weber",
-     "phone": "144 000 000",
-     "address": "1234, bbb, 125",
-     "email": "email"
-    },
-    {
-     "id": 4,
-     "name": "dsfcsdf",
-     "phone": "6544-454-565",
-     "address": "sdssd",
-     "email": "sdsds"
-    },
-    {
-     "id": 5,
-     "name": "Elena Ivanova",
-     "phone": "",
-     "address": "Пушкарскмя Ул",
-     "email": "iea140777@gmail.com"
-    }
-   ]
-  },
-  {
-   "userId": "2",
-   "contacts": [
-    {
-     "id": 1,
-     "name": "John Doe",
-     "phone": "789456156",
-     "address": "123 Road 123456",
-     "email": "fff@ttt.nn"
-    },
-    {
-     "id": 2,
-     "name": "Mary Ivanova",
-     "phone": "123456765",
-     "address": "dffdgdfgdf",
-     "email": "fg@fg.com"
-    }
-   ]
-  },
-  {
-   "userId": "3",
-   "contacts": [
-    {
-     "id": 1,
-     "name": "Name Name",
-     "phone": "phone",
-     "address": "address",
-     "email": "email"
-    },
-    {
-     "id": 3,
-     "name": "Name Name",
-     "phone": "444444",
-     "address": "12, cnbv, 123",
-     "email": "dfg"
-    }
-   ]
-  }
- ],
  "users": [
   {
    "id": "1",
    "name": "Mary Doe",
    "email": "1",
    "password": "1"
-  },
+  }
+ ],
+ "usersContacts": [
   {
-   "id": "2",
-   "name": "Ivan Ivanov",
-   "email": "user2@user.ru",
-   "password": "2"
-  },
-  {
-   "id": "3",
-   "name": "John Doe",
-   "email": "1",
-   "password": "1"
+   "userId": "1",
+   "contacts": []
   }
  ],
  "commonContacts": [
