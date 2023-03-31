@@ -5,7 +5,7 @@ const nextConfig = {
   swcMinify: true,
   env: {
     API_URL: process.env.NODE_ENV === "production"
-    ? "http://contacts-app-next-js.vercel.app"
+    ? "https://contacts-app-next-js.vercel.app"
     : process.env.API_URL
   }
 }
