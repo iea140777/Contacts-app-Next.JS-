@@ -58,8 +58,8 @@ export default async function contacts(
           }
 
           const newContactId: number =
-            userContacts.contacts[userContacts.contacts.length - 1].id + 1;
-          newContact.id = newContactId;
+            userContacts.contacts[userContacts.contacts.length - 1]?.id + 1;
+          newContact.id = newContactId ? newContactId : 1;
 
           userContacts.contacts.push(newContact);
         };
