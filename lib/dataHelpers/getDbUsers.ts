@@ -9,7 +9,7 @@ export function getDbUsers(): UsersDataList {
   //   writeFileSync("/tmp/mockedDbData.json", newDataJson);
   // }
 
-  const data = readFileSync("/mockedDbData.json", "utf8");
+  const data = readFileSync("mockedDbData.json", "utf8");
 
   const { users } = JSON.parse(data);
   return users;
