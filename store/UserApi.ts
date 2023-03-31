@@ -11,10 +11,15 @@ const USER_TAGS = {
   Contacts: "Contacts",
 };
 
+const BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? "contacts-app-next-js.vercel.app"
+    : "http://localhost:3000";
+
 const userApi = createApi({
   reducerPath: "userData",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000",
+    baseUrl: BASE_URL,
   }),
   extractRehydrationInfo(action, { reducerPath }) {
     if (action.type === HYDRATE) {
