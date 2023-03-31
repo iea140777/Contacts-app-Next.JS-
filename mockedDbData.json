@@ -1,16 +1,16 @@
 {
+ "usersContacts": [
+  {
+   "userId": "1",
+   "contacts": []
+  }
+ ],
  "users": [
   {
    "id": "1",
    "name": "Mary Doe",
    "email": "1",
    "password": "1"
-  }
- ],
- "usersContacts": [
-  {
-   "userId": "1",
-   "contacts": []
   }
  ],
  "commonContacts": [
