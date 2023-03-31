@@ -4,7 +4,9 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   env: {
-    API_URL: process.env.API_URL
+    API_URL: process.env.NODE_ENV === "production"
+    ? "http://contacts-app-next-js.vercel.app"
+    : process.env.API_URL
   }
 }
 

@@ -13,7 +13,7 @@ const USER_TAGS = {
 
 const BASE_URL =
   process.env.NODE_ENV === "production"
-    ? "contacts-app-next-js.vercel.app"
+    ? "http://contacts-app-next-js.vercel.app"
     : "http://localhost:3000";
 
 const userApi = createApi({
