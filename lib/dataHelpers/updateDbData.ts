@@ -1,4 +1,5 @@
 import { readFileSync, writeFileSync } from "fs";
+import path from "path";
 
 import { DbData } from "../../utils/types";
 
@@ -6,7 +7,11 @@ type DataByKey = DbData[keyof DbData];
 type Handler = (data: DataByKey) => void;
 
 export function updateDbData(handler: Handler, key: keyof DbData) {
-  const data: DbData = JSON.parse(readFileSync("mockedDbData.json", "utf8"));
+  const jsonDirectory = path.join(process.cwd(), "json");
+  // const data = readFileSync(jsonDirectory + "/mockedDbData.json", "utf8");
+  const data: DbData = JSON.parse(
+    readFileSync(jsonDirectory + "/mockedDbData.json", "utf8")
+  );
   const dataByKey: DataByKey = data[key];
 
   handler(dataByKey);
@@ -15,5 +20,5 @@ export function updateDbData(handler: Handler, key: keyof DbData) {
     ...data,
   };
   const newDataJson = JSON.stringify(newData, null, " ");
-  writeFileSync("mockedDbData.json", newDataJson);
+  writeFileSync(jsonDirectory + "/mockedDbData.json", newDataJson);
 }
