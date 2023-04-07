@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 import authorizeUser from "../../lib/authorizeUser";
 import cookieOptions from "../../lib/cookieOptions";
-import setCookie from "../../lib/setCookie";
+import setCookie from "../../lib/dataHelpers/setCookie";
 
 export default function login(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {

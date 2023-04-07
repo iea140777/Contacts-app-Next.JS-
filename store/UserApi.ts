@@ -5,6 +5,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Contact, ContactsList, UserData } from "../utils/types";
 
 type GetUserRequestParams = Pick<UserData, "email" | "password">;
+type CreateUserRequestParams = Pick<UserData, "name" | "email" | "password">;
 
 const USER_TAGS = {
   UserData: "UserData",
@@ -44,6 +45,14 @@ const userApi = createApi({
       }),
       invalidatesTags: [USER_TAGS.Contacts],
     }),
+    createUser: builder.mutation<UserData, CreateUserRequestParams>({
+      query: ({ name, email, password }) => ({
+        url: "/api/createUser",
+        method: "POST",
+        body: { name, email, password },
+      }),
+      invalidatesTags: [USER_TAGS.Contacts],
+    }),
     getUserContacts: builder.query<ContactsList, string>({
       query: (searchString) => ({
         url: `api/contacts?q=${searchString}`,
@@ -80,6 +89,7 @@ const userApi = createApi({
 const {
   useLogoutUserMutation,
   useLoginUserMutation,
+  useCreateUserMutation,
   useLazyGetUserContactsQuery,
   useGetUserContactsQuery,
   useAddUserContactMutation,
@@ -91,6 +101,7 @@ export {
   userApi,
   useLogoutUserMutation,
   useLoginUserMutation,
+  useCreateUserMutation,
   useLazyGetUserContactsQuery,
   useAddUserContactMutation,
   useDeleteUserContactMutation,

@@ -1,13 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-import jwt from "jsonwebtoken";
-
 import { User, UserData } from "../utils/types";
 import cookieOptions from "./cookieOptions";
 import { getDbUsers } from "./dataHelpers/getDbUsers";
-import setCookie from "./setCookie";
+import setCookie from "./dataHelpers/setCookie";
+import { setToken } from "./dataHelpers/setToken";
 
-const JWT_TOKEN_KEY = process.env.JWT_TOKEN_KEY || "super duper secret key";
 const users = getDbUsers();
 
 export default function authorizeUser(
@@ -21,9 +19,7 @@ export default function authorizeUser(
 
   if (!user) return res.status(401).send("");
 
-  const token = jwt.sign({ email: user.email }, JWT_TOKEN_KEY, {
-    expiresIn: "1d",
-  });
+  const token = setToken(user.email);
 
   setCookie(res, "auth", token, cookieOptions);
 

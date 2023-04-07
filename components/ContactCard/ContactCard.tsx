@@ -88,7 +88,12 @@ function ContactCard({
         setModalVariant(ModalVariants.SAVE_EMPTY_CONTACT);
         setIsModalOpen(true);
       } else {
-        await addUserContactMutation(contactData);
+        try {
+          await addUserContactMutation(contactData);
+        } catch (error) {
+          // TODO: create modal for showing error
+          console.error("rejected", error);
+        }
         setEditMode(false);
       }
     } else {
