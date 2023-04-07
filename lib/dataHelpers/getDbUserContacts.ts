@@ -4,7 +4,7 @@ import path from "path";
 import { ContactsList, DbData, UserId } from "../../utils/types";
 
 export function getDbUserContacts(id: UserId): ContactsList | undefined {
-  const jsonDirectory = path.join(process.cwd(), "tmp");
+  const jsonDirectory = path.join(process.cwd(), "/tmp");
   const data = readFileSync(jsonDirectory + "/mockedDbData.json", "utf8");
   const parsedData: DbData = JSON.parse(data);
   const { usersContacts } = parsedData;

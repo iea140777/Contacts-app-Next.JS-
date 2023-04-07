@@ -7,7 +7,7 @@ type DataByKey = DbData[keyof DbData];
 type Handler = (data: DataByKey) => void;
 
 export function updateDbData(handler: Handler, key: keyof DbData) {
-  const jsonDirectory = path.join(process.cwd(), "tmp");
+  const jsonDirectory = path.join(process.cwd(), "/tmp");
   const data: DbData = JSON.parse(
     readFileSync(jsonDirectory + "/mockedDbData.json", "utf8")
   );
