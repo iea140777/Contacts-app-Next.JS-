@@ -20,10 +20,10 @@ export default function LoginPage() {
     { data: loginResult, isLoading: isLoggingIn, error },
   ] = useLoginUserMutation();
 
-  const loginHandler = (values: { username: string; password: string }) => {
+  const loginHandler = (values: { email: string; password: string }) => {
     setIsLoginFailed(false);
     dispatch(setIsAuthorized(false));
-    loginUserMutation({ email: values.username, password: values.password });
+    loginUserMutation({ email: values.email, password: values.password });
   };
 
   useEffect(() => {

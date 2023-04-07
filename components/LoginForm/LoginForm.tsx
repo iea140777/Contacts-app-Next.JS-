@@ -3,7 +3,7 @@ import { Button, Form, Input } from "antd";
 import styles from "./LoginForm.module.scss";
 
 interface LoginFormProps {
-  loginHandler: (values: { username: string; password: string }) => void;
+  loginHandler: (values: { email: string; password: string }) => void;
 }
 
 function LoginForm({ loginHandler }: LoginFormProps) {
@@ -19,8 +19,8 @@ function LoginForm({ loginHandler }: LoginFormProps) {
         autoComplete="off"
       >
         <Form.Item
-          label="Username"
-          name="username"
+          label="Email"
+          name="email"
           rules={[{ required: true, message: "Please input your username!" }]}
         >
           <Input />

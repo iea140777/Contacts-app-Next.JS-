@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 import { authenticateUser } from "../../lib/authenticateUser";
 import { getDbUserContacts } from "../../lib/dataHelpers/getDbUserContacts";
+import { idGenerator } from "../../lib/dataHelpers/idGenerator";
 import { updateDbData } from "../../lib/dataHelpers/updateDbData";
 import { DbData } from "../../utils/types";
 import { Contact, ContactsList, DataByKey } from "../../utils/types";
@@ -57,8 +58,7 @@ export default async function contacts(
             return res.status(401).send("");
           }
 
-          const newContactId: number =
-            userContacts.contacts[userContacts.contacts.length - 1]?.id + 1;
+          const newContactId: number = idGenerator(userContacts.contacts);
           newContact.id = newContactId ? newContactId : 1;
 
           userContacts.contacts.push(newContact);
