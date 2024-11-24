@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "antd";
 
 import { useLogoutUserMutation } from "../../store/UserApi";
+import { setIsAuthorized, setUserId, setUserName } from "../../store/userSlice";
+import { useAppDispatch } from "../../utils/hooks";
 import { useServerRefresher } from "../../utils/hooks";
 import { User } from "../../utils/types";
 import styles from "./Navigation.module.scss";
@@ -14,6 +16,7 @@ interface Props {
 }
 
 function Navigation({ user }: Props) {
+  const dispatch = useAppDispatch();
   const [logoutUserMutation] = useLogoutUserMutation();
 
   // Rerenders component when user data is changed
@@ -22,6 +25,9 @@ function Navigation({ user }: Props) {
 
   const logoutUserHandler = async () => {
     await logoutUserMutation();
+    dispatch(setIsAuthorized(false));
+    dispatch(setUserId(undefined));
+    dispatch(setUserName(""));
     refreshData();
   };
 
