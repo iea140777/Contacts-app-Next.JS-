@@ -10,7 +10,8 @@ const users = getDbUsers();
 
 export async function authenticateUser(
   req: IncomingMessage & { cookies: any }
-): Promise<Pick<User, "name"> | undefined> {
+  // ): Promise<Pick<User, "name"> | undefined> {
+): Promise<UserData | undefined> {
   const { auth: token } = req.cookies;
 
   if (!token) return undefined;
