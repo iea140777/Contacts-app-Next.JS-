@@ -9,7 +9,7 @@ Node.js version: `14.17.0`
 
 Application consists of four pages - Home, Login, Contacts, About.
 
-To authorize successfully enter login and password for one of the users from mockedBbData.json file (e.g. email: `user1@user.ru`, password: `1`)
+To authorize successfully enter login and password for one of the users from mockedBbData.json file (e.g. email: `1`, password: `1`)
 
 Personal contacts data is available only for authorized user (can create, edit,  delete contacts, search contacts).
 
