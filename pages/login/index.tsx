@@ -56,6 +56,11 @@ export default function LoginPage() {
     setIsLoginFailed(false);
     dispatch(setIsAuthorized(false));
   };
+  const login = (): void => {
+    setIsNewUser(false);
+    setIsLoginFailed(false);
+    dispatch(setIsAuthorized(false));
+  };
 
   useEffect(() => {
     if (isLoggingIn || isCreatingUser) {
@@ -99,19 +104,30 @@ export default function LoginPage() {
           Wrong username/password. Please try again.
         </h3>
       )}
-
       {error && "status" in error && error.status !== 401 && (
         <h3 className={styles.warning}>
           {" "}
           Something went wrong... Please try again.
         </h3>
       )}
-      <h3>Please, enter your email and password to login</h3>
-      <h3>
-        or{" "}
-        <button type="button" onClick={createNewAccount}>
-          create new account
-        </button>
+      <h3 className={styles.header}>
+        {isNewUser
+          ? "Please, enter your name, email and password to register"
+          : "Please, enter your email and password to login"}
+        <br></br>or<br></br>
+        {!isNewUser ? (
+          <button
+            type="button"
+            className={styles.button}
+            onClick={createNewAccount}
+          >
+            create new account
+          </button>
+        ) : (
+          <button type="button" className={styles.button} onClick={login}>
+            login
+          </button>
+        )}
       </h3>
       <LoginForm
         loginHandler={loginHandler}

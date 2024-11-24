@@ -6,10 +6,19 @@
   flex-direction: column;
   align-items: center;
 
+  .header {
+    text-align: center;
+  }
+
   .button {
-    position: absolute;
-    right: 0;
-    top: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: 500;
+    color:rgb(0, 0, 255, 0.7);
+    &:hover {
+      color: blue;
+    }
   }
 }
 
