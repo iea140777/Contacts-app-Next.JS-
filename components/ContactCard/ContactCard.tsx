@@ -23,12 +23,14 @@ import styles from "./ContactCard.module.scss";
 
 interface ContactCardProps {
   contact: Contact;
+  isCommon: boolean;
   isLoading: boolean;
   cancelNewContact: () => void;
 }
 
 function ContactCard({
   contact,
+  isCommon,
   cancelNewContact,
   isLoading,
 }: ContactCardProps) {
@@ -197,7 +199,13 @@ function ContactCard({
             name || " No name"
           )
         }
-        actions={editMode ? cardActionsEditMode : cardActionsDefault}
+        actions={
+          !isCommon
+            ? editMode
+              ? cardActionsEditMode
+              : cardActionsDefault
+            : undefined
+        }
         loading={isLoading || addingUser || updatingUser}
         className={styles.card}
       >

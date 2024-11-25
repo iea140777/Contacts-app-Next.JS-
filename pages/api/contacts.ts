@@ -36,9 +36,7 @@ export default async function contacts(
           user.id
         );
         if (!userContacts) {
-          return res
-            .status(500)
-            .json("Error when getting contacts for the user");
+          return res.status(204).send("");
         }
         const searchString = Object.values(req.query)[0] ?? "";
         const result = searchContacts(userContacts, searchString);

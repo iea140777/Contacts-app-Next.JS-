@@ -61,10 +61,14 @@ export default function Contacts({ commonContacts, user }: ContactsProps) {
     );
   };
 
-  const renderContactCards = (contactsData: ContactsList) =>
+  const renderContactCards = (
+    contactsData: ContactsList,
+    isCommonContact: boolean
+  ) =>
     contactsData.map((contact) => (
       <ContactCard
         contact={contact}
+        isCommon={isCommonContact}
         key={contact.id}
         isLoading={isFetching}
         cancelNewContact={cancelNewContactHandler}
@@ -107,7 +111,7 @@ export default function Contacts({ commonContacts, user }: ContactsProps) {
               <h2>Personal contacts</h2>
               {contacts.length > 0 ? (
                 <div className={styles.cardContainer}>
-                  {renderContactCards(contacts)}
+                  {renderContactCards(contacts, false)}
                 </div>
               ) : (
                 <h3>No contacts found...</h3>
@@ -119,7 +123,7 @@ export default function Contacts({ commonContacts, user }: ContactsProps) {
 
       <h2>Common contacts</h2>
       <div className={styles.cardContainer}>
-        {renderContactCards(commonContacts)}
+        {renderContactCards(commonContacts, true)}
       </div>
     </div>
   );
