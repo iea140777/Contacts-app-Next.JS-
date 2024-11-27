@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { Button, Input } from "antd";
+import { Tabs } from "antd";
 
 import { ContactCard } from "../../components/ContactCard/ContactCard";
 import { authenticateUser } from "../../lib/authenticateUser";
@@ -46,7 +47,7 @@ export default function Contacts({ commonContacts, user }: ContactsProps) {
     } else {
       dispatch(setIsLoading(false));
     }
-  }, [isFetching]);
+  }, [isFetching, dispatch]);
 
   const hasEmptyContact =
     contacts.filter((contact) => contact.id === 0).length > 0;
@@ -75,20 +76,20 @@ export default function Contacts({ commonContacts, user }: ContactsProps) {
       />
     ));
 
-  return (
-    <div className={styles.container}>
-      <h2>Contacts</h2>
-      {!user && (
+  const renderPersonalContacts = () => {
+    if (!user) {
+      return (
         <h3>
           Please <Link href="/login">login</Link> to see your personal contacts.
         </h3>
-      )}
-      {user && (
+      );
+    } else {
+      return (
         <>
           {error && <span>Something went wrong...</span>}
           {contacts && (
-            <>
-              <h3>Total {contacts.length} personal contacts</h3>
+            <div className={styles.contactsContainer}>
+              <h2>Total {contacts.length} personal contacts</h2>
               <div className={styles.searchContainer}>
                 <h3>Search personal contacts:</h3>
                 <Search
@@ -108,7 +109,6 @@ export default function Contacts({ commonContacts, user }: ContactsProps) {
               >
                 Add new contact
               </Button>
-              <h2>Personal contacts</h2>
               {contacts.length > 0 ? (
                 <div className={styles.cardContainer}>
                   {renderContactCards(contacts, false)}
@@ -116,15 +116,43 @@ export default function Contacts({ commonContacts, user }: ContactsProps) {
               ) : (
                 <h3>No contacts found...</h3>
               )}
-            </>
+            </div>
           )}
         </>
-      )}
+      );
+    }
+  };
 
-      <h2>Common contacts</h2>
-      <div className={styles.cardContainer}>
-        {renderContactCards(commonContacts, true)}
+  const renderCommonContacts = () => {
+    return (
+      <div className={styles.contactsContainer}>
+        <h2>Common contacts</h2>
+        <div className={styles.cardContainer}>
+          {renderContactCards(commonContacts, true)}
+        </div>
       </div>
+    );
+  };
+
+  return (
+    <div className={styles.container}>
+      <h2>Contacts</h2>
+      <Tabs
+        tabPosition="left"
+        defaultActiveKey="1"
+        items={[
+          {
+            label: "Personal contacts",
+            key: "1",
+            children: renderPersonalContacts(),
+          },
+          {
+            label: "Common Contacts",
+            key: "2",
+            children: renderCommonContacts(),
+          },
+        ]}
+      />
     </div>
   );
 }

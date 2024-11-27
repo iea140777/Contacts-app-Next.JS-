@@ -2,14 +2,17 @@
   padding: 50px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   gap: 10px;
+}
+
+.contactsContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
 .cardContainer {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
   margin-bottom: 30px;
@@ -19,10 +22,10 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 60%;
 }
 
 .button {
   margin: 20px 0;
+  align-self: flex-start;
 }
