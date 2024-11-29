@@ -1,0 +1,10 @@
+.button {
+  width: fit-content;
+  font-size: 1.17em;
+  font-weight: 500;
+  border: none;
+  &:hover {
+    color: #1890ff;
+    cursor: pointer;
+  }
+}

@@ -7,10 +7,11 @@ import { Button, Input } from "antd";
 import { Tabs } from "antd";
 
 import { ContactCard } from "../../components/ContactCard/ContactCard";
+import { SortingButton } from "../../components/SortingButton/SortingButton";
 import { authenticateUser } from "../../lib/authenticateUser";
 import { setIsLoading } from "../../store/loaderSlice";
 import { useGetUserContactsQuery } from "../../store/UserApi";
-import { emptyContact } from "../../utils/constants";
+import { emptyContact, SortingOrder } from "../../utils/constants";
 import { useAppDispatch } from "../../utils/hooks";
 import { UserData } from "../../utils/types";
 import { ContactsList } from "../../utils/types";
@@ -34,6 +35,9 @@ export default function Contacts({ commonContacts, user }: ContactsProps) {
     error,
   } = useGetUserContactsQuery(searchString, { skip: !user });
   const [contacts, setContacts] = useState<ContactsList>([]);
+  const [sortingOrder, setSortingOrder] = useState<SortingOrder>(
+    SortingOrder.DESC
+  );
 
   useEffect(() => {
     if (fetchedContacts) {
@@ -62,11 +66,23 @@ export default function Contacts({ commonContacts, user }: ContactsProps) {
     );
   };
 
+  const sortingButtonHandler = () => {
+    setSortingOrder(
+      sortingOrder === SortingOrder.DESC ? SortingOrder.ASC : SortingOrder.DESC
+    );
+  };
+
   const renderContactCards = (
     contactsData: ContactsList,
     isCommonContact: boolean
-  ) =>
-    contactsData.map((contact) => (
+  ) => {
+    const data = [...contactsData];
+    const sortedContacts =
+      sortingOrder === SortingOrder.DESC
+        ? data.sort((a, b) => a.name.localeCompare(b.name, "en"))
+        : data.sort((a, b) => b.name.localeCompare(a.name, "en"));
+
+    const contactsList = sortedContacts.map((contact) => (
       <ContactCard
         contact={contact}
         isCommon={isCommonContact}
@@ -75,6 +91,8 @@ export default function Contacts({ commonContacts, user }: ContactsProps) {
         cancelNewContact={cancelNewContactHandler}
       />
     ));
+    return contactsList;
+  };
 
   const renderPersonalContacts = () => {
     if (!user) {
@@ -109,6 +127,11 @@ export default function Contacts({ commonContacts, user }: ContactsProps) {
               >
                 Add new contact
               </Button>
+              <SortingButton
+                buttonHandler={sortingButtonHandler}
+                sortingOrder={sortingOrder}
+              />
+
               {contacts.length > 0 ? (
                 <div className={styles.cardContainer}>
                   {renderContactCards(contacts, false)}

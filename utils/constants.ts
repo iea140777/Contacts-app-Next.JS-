@@ -13,4 +13,9 @@ const emptyContact: Contact = {
   email: "",
 };
 
-export { ModalVariants, emptyContact };
+enum SortingOrder {
+  ASC,
+  DESC,
+}
+
+export { ModalVariants, emptyContact, SortingOrder };
