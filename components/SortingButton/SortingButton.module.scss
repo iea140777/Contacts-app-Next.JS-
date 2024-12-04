@@ -3,8 +3,9 @@
   font-size: 1.17em;
   font-weight: 500;
   border: none;
+  color: rgb(24, 144, 255, 0.8);
   &:hover {
-    color: #1890ff;
+    color: rgb(24, 144, 255);
     cursor: pointer;
   }
 }
